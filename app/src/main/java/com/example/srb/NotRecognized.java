@@ -28,7 +28,7 @@ public class NotRecognized extends Fragment {
         // Inflate the layout for this fragment
         view =inflater.inflate(R.layout.fragment_not_recognized, container, false);
         temp = NotRecognizedArgs.fromBundle(getArguments()).getTempNumber();
-        Toast.makeText(getActivity(), temp, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Barcode:" + temp, Toast.LENGTH_LONG).show();
         ImageButton No = view.findViewById(R.id.No_ReHome);
         No.setOnClickListener(new View.OnClickListener()
         {

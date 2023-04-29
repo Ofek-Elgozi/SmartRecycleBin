@@ -38,10 +38,10 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/item_name" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -52,84 +52,83 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <ImageButton
-        android:id="@+id/imageButton4"
+        android:id="@+id/send_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:background="@android:color/transparent"
         android:src="@drawable/send_mesage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioButton" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <ImageView
         android:id="@+id/imageView7"
         android:layout_width="192dp"
         android:layout_height="144dp"
         android:layout_marginStart="53dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="20dp"
         android:src="@drawable/logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView8"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton4" />
+        app:layout_constraintTop_toBottomOf="@+id/send_btn" />
 
     <ImageView
         android:id="@+id/imageView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:src="@drawable/thankyou"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton4" />
+        app:layout_constraintTop_toBottomOf="@+id/send_btn" />
 
-    <RadioButton
-        android:id="@+id/radioButton"
+    <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="10dp"
-        android:text="Glass"
-        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintTop_toBottomOf="@+id/textView10">
 
-    <RadioButton
-        android:id="@+id/radioButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="Paper"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/radioButton"
-        app:layout_constraintStart_toEndOf="@+id/radioButton"
-        app:layout_constraintTop_toTopOf="@+id/radioButton" />
+        <RadioButton
+            android:id="@+id/radio_glass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Glass"
+            android:textStyle="bold" />
 
-    <RadioButton
-        android:id="@+id/radioButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="Plastic"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/radioButton2"
-        app:layout_constraintStart_toEndOf="@+id/radioButton2"
-        app:layout_constraintTop_toTopOf="@+id/radioButton2" />
+        <RadioButton
+            android:id="@+id/radio_paper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="Paper"
+            android:textStyle="bold" />
 
-    <RadioButton
-        android:id="@+id/radioButton4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="Regular"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/radioButton3"
-        app:layout_constraintStart_toEndOf="@+id/radioButton3"
-        app:layout_constraintTop_toTopOf="@+id/radioButton3" />
+        <RadioButton
+            android:id="@+id/radio_regular"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:text="Regular"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/radio_plastic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:text="Plastic"
+            android:textStyle="bold" />
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

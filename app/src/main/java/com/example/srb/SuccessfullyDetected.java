@@ -2,9 +2,12 @@ package com.example.srb;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -20,6 +23,7 @@ public class SuccessfullyDetected extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment\
+
         view = inflater.inflate(R.layout.fragment_successfully_detected, container, false);
         item = SuccessfullyDetectedArgs.fromBundle(getArguments()).getItem();
         TextView itemType = view.findViewById(R.id.item_type);
@@ -28,25 +32,25 @@ public class SuccessfullyDetected extends Fragment {
         ImageView v_paper = view.findViewById(R.id.Vpaper);
         ImageView v_regular = view.findViewById(R.id.Vregular);
         itemType.setText(item.getType());
-        if(item.getType() == "Plastic")
+        if(item.getType().equals("Plastic"))
         {
             v_glass.setVisibility(View.INVISIBLE);
             v_paper.setVisibility(View.INVISIBLE);
             v_regular.setVisibility(View.INVISIBLE);
         }
-        else if(item.getType() == "Glass")
+        else if(item.getType().equals("Glass"))
         {
             v_plastic.setVisibility(View.INVISIBLE);
             v_paper.setVisibility(View.INVISIBLE);
             v_regular.setVisibility(View.INVISIBLE);
         }
-        else if(item.getType() == "Paper")
+        else if(item.getType().equals("Paper"))
         {
             v_plastic.setVisibility(View.INVISIBLE);
             v_glass.setVisibility(View.INVISIBLE);
             v_regular.setVisibility(View.INVISIBLE);
         }
-        else // Regular
+        else if(item.getType().equals("Regular"))
         {
             v_plastic.setVisibility(View.INVISIBLE);
             v_glass.setVisibility(View.INVISIBLE);
