@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +25,7 @@ public class SuccessfullyDetected extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment\
-
+        setHasOptionsMenu(true);
         view = inflater.inflate(R.layout.fragment_successfully_detected, container, false);
         item = SuccessfullyDetectedArgs.fromBundle(getArguments()).getItem();
         TextView itemType = view.findViewById(R.id.item_type);
@@ -58,4 +60,26 @@ public class SuccessfullyDetected extends Fragment {
         }
         return view;
     }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater)
+    {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.home_menu,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.menuHome:
+                Navigation.findNavController(view).navigate(R.id.firstFragment);
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
 }

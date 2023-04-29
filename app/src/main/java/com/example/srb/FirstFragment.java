@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -35,6 +38,7 @@ public class FirstFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setHasOptionsMenu(false);
         view = inflater.inflate(R.layout.fragment_first, container, false);
         scanBtn = view.findViewById(R.id.scan_btn);
         scanBtn.setOnClickListener(new View.OnClickListener() {
@@ -102,5 +106,6 @@ public class FirstFragment extends Fragment {
             }
         }
     }
+
 
 }

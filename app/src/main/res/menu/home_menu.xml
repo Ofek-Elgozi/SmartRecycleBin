@@ -3,13 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menuBack"
-        android:icon="@drawable/menu_back"
-        android:title="Back"
-        app:showAsAction="always" />
-    <item
         android:id="@+id/menuHome"
         android:icon="@drawable/menu_home"
         android:title="Home"
+        android:visible="true"
         app:showAsAction="always" />
 </menu>
