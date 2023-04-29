@@ -37,7 +37,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView15" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/YesEntDeat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -48,7 +48,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView16" />
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/No_ReHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

@@ -26,7 +26,7 @@ public class ModelFireBase
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task)
             {
-                LinkedList<Item> carList = new LinkedList<Item>();
+                LinkedList<Item> itemList = new LinkedList<Item>();
                 if(task.isSuccessful())
                 {
                     for(QueryDocumentSnapshot doc: task.getResult())
@@ -34,10 +34,10 @@ public class ModelFireBase
                         Item i = Item.fromJson(doc.getData());
                         i.setId(doc.getId());
                         if(i!=null)
-                            carList.add(i);
+                            itemList.add(i);
                     }
                 }
-                listener.onComplete(carList);
+                listener.onComplete(itemList);
             }
         }).addOnFailureListener(new OnFailureListener()
         {
@@ -108,9 +108,9 @@ public class ModelFireBase
                     DocumentSnapshot document = task.getResult();
                     if (document.exists())
                     {
-                        Item u = Item.fromJson(document.getData());
-                        if(u!=null)
-                            listener.onComplete(u);
+                        Item i = Item.fromJson(document.getData());
+                        if(i!=null)
+                            listener.onComplete(i);
                     }
                     else
                     {

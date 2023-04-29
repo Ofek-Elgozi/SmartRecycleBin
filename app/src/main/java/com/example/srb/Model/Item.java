@@ -1,18 +1,19 @@
 package com.example.srb.Model;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.example.srb.MyApplication;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.FieldValue;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,16 +23,16 @@ public class Item implements Parcelable
     public final static String LAST_UPDATED="LAST_UPDATED";
     @PrimaryKey
     @NonNull
-    public String id =null;
+    public String id;
     public String name;
     public String type;
     Long lastUpdated= new Long(0);
 
-    public Item(com.example.srb.Model.Item c)
+    public Item(com.example.srb.Model.Item i)
     {
-        this.id= c.id;
-        this.name =c.name;
-        this.type =c.type;
+        this.id= i.id;
+        this.name =i.name;
+        this.type =i.type;
     }
 
     public Item(String name, String type, String id)
@@ -105,7 +106,7 @@ public class Item implements Parcelable
 
     static long getLocalLastUpdated()
     {
-        Long localLastUpdate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("ITEMS_LAST_UPDATE", 0 );
+        Long localLastUpdate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("CARS_LAST_UPDATE", 0 );
         Log.d("TAG","localLastUpdate: " + localLastUpdate);
         return localLastUpdate;
     }
@@ -113,7 +114,7 @@ public class Item implements Parcelable
     static void setLocalLastUpdated(Long date)
     {
         SharedPreferences.Editor editor = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).edit();
-        editor.putLong("ITEMS_LAST_UPDATE",date);
+        editor.putLong("CARS_LAST_UPDATE",date);
         editor.commit();
         Log.d("TAG", "new lud" + date);
     }

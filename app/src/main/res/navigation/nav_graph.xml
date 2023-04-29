@@ -26,8 +26,7 @@
             app:destination="@id/successfullyDetected" />
         <argument
             android:name="tempNumber"
-            app:argType="string"
-            android:defaultValue="1" />
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/notRecognized"
@@ -48,5 +47,14 @@
         android:id="@+id/successfullyDetected"
         android:name="com.example.srb.SuccessfullyDetected"
         android:label="fragment_successfully_detected"
-        tools:layout="@layout/fragment_successfully_detected" />
+        tools:layout="@layout/fragment_successfully_detected" >
+        <action
+            android:id="@+id/action_successfullyDetected_to_firstFragment"
+            app:destination="@id/firstFragment"
+            app:popUpTo="@id/firstFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="Item"
+            app:argType="com.example.srb.Model.Item" />
+    </fragment>
 </navigation>

@@ -17,7 +17,10 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
+import com.example.srb.Model.Item;
+import com.example.srb.Model.Model;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.client.android.Intents;
 import com.journeyapps.barcodescanner.CaptureActivity;
@@ -27,14 +30,12 @@ public class FirstFragment extends Fragment {
     private static final int REQUEST_CODE_SCAN = 1;
     private ImageButton scanBtn;
     private String tempnumber;
-
-    TextView t;
-
+    View view;
+    Item Item;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_first, container, false);
-        t = view.findViewById(R.id.textView11);
+        view = inflater.inflate(R.layout.fragment_first, container, false);
         scanBtn = view.findViewById(R.id.scan_btn);
         scanBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,8 +83,21 @@ public class FirstFragment extends Fragment {
                 BarcodeFormat format = BarcodeFormat.valueOf(data.getStringExtra(Intents.Scan.RESULT_FORMAT));
                 String contents = data.getStringExtra(Intents.Scan.RESULT);
                 tempnumber = contents;
-                Toast.makeText(getActivity(), tempnumber, Toast.LENGTH_SHORT).show();
-                t.setText(tempnumber);
+                Model.instance.getItemByID(tempnumber, new Model.getItemByIDListener() {
+                    @Override
+                    public void onComplete(Item item) {
+                        if(item == null)
+                        {
+                            FirstFragmentDirections.ActionFirstFragmentToNotRecognized action = FirstFragmentDirections.actionFirstFragmentToNotRecognized(tempnumber);
+                            Navigation.findNavController(view).navigate(action);
+                        }
+                        else
+                        {
+                            FirstFragmentDirections.ActionFirstFragmentToSuccessfullyDetected action = FirstFragmentDirections.actionFirstFragmentToSuccessfullyDetected(item);
+                            Navigation.findNavController(view).navigate(action);
+                        }
+                    }
+                });
                 // Do something with the barcode data
             }
         }
