@@ -1,5 +1,8 @@
 package com.example.srb;
 
+import static com.example.srb.MainActivity.btSocket;
+
+import android.bluetooth.BluetoothSocket;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +20,9 @@ import android.widget.TextView;
 
 import com.example.srb.Model.Item;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
 
 public class SuccessfullyDetected extends Fragment {
     Item item;
@@ -24,6 +30,8 @@ public class SuccessfullyDetected extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        MainActivity m = new MainActivity();
+        BluetoothSocket btSocket = MainActivity.btSocket;
         // Inflate the layout for this fragment\
         setHasOptionsMenu(true);
         view = inflater.inflate(R.layout.fragment_successfully_detected, container, false);
@@ -39,24 +47,64 @@ public class SuccessfullyDetected extends Fragment {
             v_glass.setVisibility(View.INVISIBLE);
             v_paper.setVisibility(View.INVISIBLE);
             v_regular.setVisibility(View.INVISIBLE);
+            if (btSocket.isConnected()) {
+                try {
+                    OutputStream outputStream = btSocket.getOutputStream();
+                    outputStream.write('A');
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                // Handle connection failure here
+            }
         }
         else if(item.getType().equals("Glass"))
         {
             v_plastic.setVisibility(View.INVISIBLE);
             v_paper.setVisibility(View.INVISIBLE);
             v_regular.setVisibility(View.INVISIBLE);
+            if (btSocket.isConnected()) {
+                try {
+                    OutputStream outputStream = btSocket.getOutputStream();
+                    outputStream.write('B');
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                // Handle connection failure here
+            }
         }
         else if(item.getType().equals("Paper"))
         {
             v_plastic.setVisibility(View.INVISIBLE);
             v_glass.setVisibility(View.INVISIBLE);
             v_regular.setVisibility(View.INVISIBLE);
+            if (btSocket.isConnected()) {
+                try {
+                    OutputStream outputStream = btSocket.getOutputStream();
+                    outputStream.write('C');
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                // Handle connection failure here
+            }
         }
         else if(item.getType().equals("Regular"))
         {
             v_plastic.setVisibility(View.INVISIBLE);
             v_glass.setVisibility(View.INVISIBLE);
             v_paper.setVisibility(View.INVISIBLE);
+            if (btSocket.isConnected()) {
+                try {
+                    OutputStream outputStream = btSocket.getOutputStream();
+                    outputStream.write('D');
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                // Handle connection failure here
+            }
         }
         return view;
     }
