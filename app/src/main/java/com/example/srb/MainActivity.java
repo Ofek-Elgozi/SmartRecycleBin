@@ -168,7 +168,6 @@ public class MainActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                     runOnUiThread(new Runnable() {
                                         public void run() {
-                                            Toast.makeText(MainActivity.this, "Invalid number format", Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                 }
@@ -181,7 +180,6 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                         runOnUiThread(new Runnable() {
                             public void run() {
-                                Toast.makeText(MainActivity.this, "Error reading data", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -191,7 +189,6 @@ public class MainActivity extends AppCompatActivity {
             workerThread.start();
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(MainActivity.this, "Error starting data reading", Toast.LENGTH_SHORT).show();
         }
     }
     private void stopReadingData() {
