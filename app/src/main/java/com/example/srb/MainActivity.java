@@ -7,6 +7,14 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
+import java.io.InputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
+
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
@@ -18,6 +26,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -29,10 +38,16 @@ public class MainActivity extends AppCompatActivity {
     static final UUID mUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private static final int REQUEST_BLUETOOTH_PERMISSION = 1;
     private MainActivity context;
+    private InputStream inputStream;
+    private Thread workerThread;
+    private boolean stopWorker;
+
+    private static final String CHARACTER_ENCODING = "UTF-8"; // Modify this if needed
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.BLUETOOTH,Manifest.permission.BLUETOOTH_ADMIN,Manifest.permission.BLUETOOTH_CONNECT};
+        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH_CONNECT};
         int requestCode = 1; // Choose any value you prefer
         ActivityCompat.requestPermissions(this, permissions, requestCode);
         //Bluetooth stuff
@@ -67,6 +82,10 @@ public class MainActivity extends AppCompatActivity {
                             }
                             btSocket.connect();
                             System.out.println(btSocket.isConnected());
+
+                            // Start reading data from the Bluetooth connection
+                            startReadingData();
+
                         } catch (IOException e) {
                             e.printStackTrace();
                             // Handle connection failure here
@@ -86,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             counter++;
         } while (!btSocket.isConnected() && counter < 3);
 
-// Sending a test signal
+        // Sending a test signal
         if (btSocket.isConnected()) {
             try {
                 OutputStream outputStream = btSocket.getOutputStream();
@@ -109,5 +128,89 @@ public class MainActivity extends AppCompatActivity {
         // ...
     }
 
+    private void startReadingData() {
+        try {
+            inputStream = btSocket.getInputStream();
 
+            stopWorker = false;
+            workerThread = new Thread(new Runnable() {
+                public void run() {
+                    byte[] buffer = new byte[1024];
+                    int bytesRead;
+                    StringBuilder stringBuilder = new StringBuilder();
+
+                    try {
+                        while ((bytesRead = inputStream.read(buffer)) > 0) {
+                            String data = new String(buffer, 0, bytesRead);
+                            stringBuilder.append(data);
+
+                            // Check if the received data contains a complete number
+                            if (data.contains("\n")) {
+                                // Extract the number from the received data
+                                String numberString = stringBuilder.toString().trim();
+
+                                // Parse the number as an integer
+                                try {
+                                    int number = Integer.parseInt(numberString);
+                                    // Use the number in your application as needed
+                                    runOnUiThread(new Runnable() {
+                                        public void run() {
+                                            // Update UI or use the number
+
+                                            if(number==0){
+                                                Toast.makeText(MainActivity.this, "HIGH TEMPERATURE! RUN!!!", Toast.LENGTH_LONG).show();
+                                            } else if (number==1) {
+                                                Toast.makeText(MainActivity.this, "REMOVE YOYR HAND BITCH!!", Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    });
+                                } catch (NumberFormatException e) {
+                                    e.printStackTrace();
+                                    runOnUiThread(new Runnable() {
+                                        public void run() {
+                                            Toast.makeText(MainActivity.this, "Invalid number format", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+
+                                // Clear the StringBuilder for the next number
+                                stringBuilder.setLength(0);
+                            }
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast.makeText(MainActivity.this, "Error reading data", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
+            });
+
+            workerThread.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(MainActivity.this, "Error starting data reading", Toast.LENGTH_SHORT).show();
+        }
+    }
+    private void stopReadingData() {
+        stopWorker = true;
+        if (workerThread != null) {
+            workerThread.interrupt();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopReadingData();
+        try {
+            if (btSocket != null) {
+                btSocket.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
