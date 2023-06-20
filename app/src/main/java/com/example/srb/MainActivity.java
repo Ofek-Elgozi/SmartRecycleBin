@@ -160,7 +160,11 @@ public class MainActivity extends AppCompatActivity {
                                             if(number==0){
                                                 Toast.makeText(MainActivity.this, "HIGH TEMPERATURE! RUN!!!", Toast.LENGTH_LONG).show();
                                             } else if (number==1) {
-                                                Toast.makeText(MainActivity.this, "REMOVE YOYR HAND BITCH!!", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(MainActivity.this, "REMOVE YOYR HAND!!", Toast.LENGTH_LONG).show();
+                                            } else if (number==3) {
+                                                Toast.makeText(MainActivity.this, "YOU ENTERED THE ITEM TO THE WRONG BIN.", Toast.LENGTH_LONG).show();
+                                            } else if (number==4) {
+                                                Toast.makeText(MainActivity.this, "WAITING.. PLEASE THROW THE ITEM INTO THE DESIRED BIN.", Toast.LENGTH_LONG).show();
                                             }
                                         }
                                     });
